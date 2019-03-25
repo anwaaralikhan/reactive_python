@@ -18,3 +18,8 @@
   4-  server.py
     a-  Import libraries (like rx, tornado etc)
     
+
+# Websockets
+  1-  Bi-directional communication
+  
+ # Data Origion
