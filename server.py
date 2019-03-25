@@ -10,8 +10,12 @@ from tornado.httpclient import AsyncHTTPClient
 from tornado.web import Application, RequestHandler, StaticFileHandler, url
 from tornado.websocket import WebSocketHandler
 
+# It is important to note that, to use Github API Authentication we need to use
+# AsyncHttpClient over here.
+# Placed this code right after imported libraries
 AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
 
+# Initailize headers and app-environment.
 headers = conf.headers
 GIT_ORG = conf.GITHUB_API_URL+"/orgs"
 
