@@ -17,6 +17,8 @@ AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
 
 # Initailize headers and app-environment.
 headers = conf.headers
+
+# Data origin = GITHUB API
 GIT_ORG = conf.GITHUB_API_URL+"/orgs"
 
 class WSHandler(WebSocketHandler):
@@ -25,7 +27,9 @@ class WSHandler(WebSocketHandler):
   def check_origin(self, origin):
       #Override to enable support for allowing alternate origins.
       return True
-
+  
+  # Asynchrnous http_client
+  #   Receive input and Return async response
   def get_org_repos(self, org):
     """request the repos to the GitHub API"""
     http_client = AsyncHTTPClient()
@@ -35,7 +39,8 @@ class WSHandler(WebSocketHandler):
   def on_message(self, message):
     obj = json_decode(message)
     self.subject.on_next(obj['term'])
-
+  
+  # on_close should be called in the end to avoid memory leaks
   def on_close(self):
     # Unsubscribe from observable
     #  will stop the work of all observable
@@ -46,9 +51,11 @@ class WSHandler(WebSocketHandler):
     print("WebSocket opened")
     self.write_message("connection opened")
 
+    # when we are printing the message
     def send_response(x):
         self.write_message(json.dumps(x))
-
+    
+    # for exception handlings
     def on_error(ex):
         print(ex)
 
@@ -74,7 +81,7 @@ class WSHandler(WebSocketHandler):
         self.get_data
     ).subscribe(send_response, on_error)
 
-
+  
   def get_info(self,req):
     """managing error codes and returning a list of json with content"""
     if req.code == 200:
