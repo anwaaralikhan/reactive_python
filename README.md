@@ -7,9 +7,9 @@
 
 
 # files
-  1-  pipfiles (Details about project)
-    a-  Python version
-    b-  Packages information etc.
+  -  pipfiles (Details about project)
+    --  Python version
+    --  Packages information etc.
   2-  pipenv.lock
     a-  Package dependencies
     b-  Transitive dependencies
