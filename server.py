@@ -10,6 +10,8 @@ from tornado.httpclient import AsyncHTTPClient
 from tornado.web import Application, RequestHandler, StaticFileHandler, url
 from tornado.websocket import WebSocketHandler
 
+
+# Notes
 # It is important to note that, to use Github API Authentication we need to use
 # AsyncHttpClient over here.
 # Placed this code right after imported libraries
